@@ -1,7 +1,8 @@
 import React from 'react'
 import '../css/test.css'
+import Axios from 'axios'
 
-class Test extends React.Component {
+export default class Test extends React.Component {
   constructor() {
     super()
     this.state = {
@@ -9,9 +10,8 @@ class Test extends React.Component {
     }
   }
   componentDidMount() {
-    fetch('/api/fakeData')
-    .then(res => res.json())
-    .then(authors => this.setState({authors}, () => console.log('authors fetched', authors)))
+    Axios.get('/api/fakeData')
+    .then(res => this.setState({authors: res.data}, () => console.log('authors retrieved: ', res)))
   }
   
   render() {
@@ -30,5 +30,3 @@ class Test extends React.Component {
     )
   }
 }
-
-export default Test
